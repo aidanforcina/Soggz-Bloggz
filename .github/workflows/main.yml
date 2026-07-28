@@ -1,0 +1,59 @@
+name: Deploy Blazor WebAssembly to GitHub Pages
+
+on:
+  push:
+    branches: [ "master" ] # Runs whenever you push code to master
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Pull down repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Install .NET 10 SDK (Version 10.0.302)
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.302'
+
+      # 3. Compile and publish your Blazor project
+      - name: Publish Blazor App
+        run: dotnet publish blog/blog.csproj -c Release -o release
+
+      # 4. Rewrite the base href to match your repo name (Soggz-Bloggz)
+      - name: Set base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+          html_path: release/wwwroot/index.html
+          base_href: /Soggz-Bloggz/
+
+      # 5. Copy index.html to 404.html to fix SPA page-refresh routing
+      - name: Copy index.html to 404.html
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+      # 6. Upload static files
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: release/wwwroot
+
+      # 7. Publish live to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
