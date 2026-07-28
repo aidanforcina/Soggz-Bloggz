@@ -26,11 +26,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Install .NET 10 SDK
+      # 2. Install .NET 10 SDK (Preview)
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
 
       # 3. Compile and publish your Blazor project
       - name: Publish Blazor App
