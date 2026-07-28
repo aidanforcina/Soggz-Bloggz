@@ -48,17 +48,17 @@ jobs:
       - name: Publish Blazor App
         run: dotnet publish "${{ steps.find_project.outputs.project }}" -c Release -o release
 
-      # 5. Copy index.html to 404.html for SPA sub-route support
+      # 5. Copy index.html to 404.html for SPA page-refresh support
       - name: Copy index.html to 404.html
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
-      # 6. Package compiled static files
+      # 6. Upload static files
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: release/wwwroot
 
-      # 7. Publish to GitHub Pages
+      # 7. Publish live to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
