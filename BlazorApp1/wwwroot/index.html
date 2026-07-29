@@ -4,7 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlazorApp1</title>
-    <base href="/" />
+
+    <!-- Automatically switches base href depending on where it's hosted -->
+    <script>
+        if (window.location.hostname.includes("github.io")) {
+            document.write('<base href="/Soggz-Bloggz/" />');
+        } else {
+            document.write('<base href="/" />');
+        }
+    </script>
+    <!-- Fallback if scripts are disabled -->
+    <noscript>
+        <base href="/" />
+    </noscript>
+
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/app.css" />
     <script type="importmap"></script>
@@ -24,18 +37,6 @@
         <span class="dismiss">🗙</span>
     </div>
 
-    <!-- Dynamic Base Path Selector for Local vs GitHub Pages -->
-    <script>
-        // Explicitly set base href for GitHub Pages subfolder vs Localhost
-        var base = document.getElementsByTagName('base')[0];
-        if (window.location.hostname.includes('github.io')) {
-            base.setAttribute('href', '/Soggz-Bloggz/');
-        } else {
-            base.setAttribute('href', '/');
-        }
-    </script>
-
-    <!-- Mandatory Blazor WebAssembly Bootstrapper Script -->
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 </html>
