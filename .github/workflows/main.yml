@@ -31,26 +31,32 @@ jobs:
           dotnet-version: '10.0.x'
           dotnet-quality: 'preview'
 
+      # 1. Publish to a clean temporary folder
       - name: Publish Blazor App
-        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o release/wwwroot
+        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o publish_site
 
+      # 2. Rewrite base href for GitHub Pages subfolder
       - name: Set base href
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
         with:
-          html_path: release/wwwroot/index.html
+          html_path: publish_site/wwwroot/index.html
           base_href: /Soggz-Bloggz/
 
+      # 3. Copy index.html to 404.html for SPA page-refresh support
       - name: Copy index.html to 404.html
-        run: cp release/wwwroot/index.html release/wwwroot/404.html
+        run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
 
+      # 4. Add .nojekyll file so GitHub doesn't ignore _framework
       - name: Add .nojekyll file
-        run: touch release/wwwroot/.nojekyll
+        run: touch publish_site/wwwroot/.nojekyll
 
+      # 5. Upload static files directly from wwwroot
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: release/wwwroot
+          path: publish_site/wwwroot
 
+      # 6. Push live to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
