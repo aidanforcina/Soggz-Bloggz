@@ -26,39 +26,39 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Install .NET 10 SDK
+      # 2. Install .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
           dotnet-quality: 'preview'
 
-      # 3. Automatically locate the project file
-      - name: Detect project
-        id: find_project
-        run: |
-          proj=$(find . -maxdepth 6 -name '*.csproj' | head -n 1)
-          if [ -z "$proj" ]; then
-            echo "No .csproj found"
-            exit 1
-          fi
-          echo "project=$proj" >> $GITHUB_OUTPUT
-
-      # 4. Compile and publish Blazor WebAssembly
+      # 3. Compile and publish Blazor WebAssembly
       - name: Publish Blazor App
-        run: dotnet publish "${{ steps.find_project.outputs.project }}" -c Release -o release
+        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o release/wwwroot
+
+      # 4. Rewrite base href for GitHub Pages subfolder
+      - name: Set base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+          html_path: release/wwwroot/index.html
+          base_href: /Soggz-Bloggz/
 
       # 5. Copy index.html to 404.html for SPA page-refresh support
       - name: Copy index.html to 404.html
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
-      # 6. Upload static files
+      # 6. Add .nojekyll file to prevent GitHub Pages from ignoring folders starting with underscore
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+
+      # 7. Upload static files
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: release/wwwroot
 
-      # 7. Publish live to GitHub Pages
+      # 8. Publish live to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
