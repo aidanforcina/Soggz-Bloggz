@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-          include-prerelease: true
 
       - name: Install WASM Build Tools
         run: dotnet workload install wasm-tools
@@ -41,15 +40,15 @@ jobs:
         run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o publish_site
 
       - name: Copy index.html to 404.html
-        run: cp BlazorApp1/publish_site/wwwroot/index.html BlazorApp1/publish_site/wwwroot/404.html
+        run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
 
       - name: Add .nojekyll file
-        run: touch BlazorApp1/publish_site/wwwroot/.nojekyll
+        run: touch publish_site/wwwroot/.nojekyll
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: BlazorApp1/publish_site/wwwroot
+          path: publish_site/wwwroot
 
       - name: Deploy to GitHub Pages
         id: deployment
