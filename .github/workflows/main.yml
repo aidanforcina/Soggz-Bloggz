@@ -28,14 +28,11 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
-          dotnet-quality: 'preview'
+          dotnet-version: '8.0.x'
 
-      # Publish with the static web asset base path passed directly as a CLI parameter
       - name: Publish Blazor App
         run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o publish_site -p:StaticWebAssetBasepath=Soggz-Bloggz
 
-      # Explicitly set the base href in index.html to match the GitHub Pages subfolder repo name
       - name: Set base href
         run: |
           sed -i 's|<base href="/" />|<base href="/Soggz-Bloggz/" />|g' publish_site/wwwroot/index.html
