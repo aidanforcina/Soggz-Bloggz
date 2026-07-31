@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+          # If your local machine uses .NET 9 or 10, change '8.0.x' to match it (e.g., '9.0.x')
 
       - name: Publish Blazor App
         working-directory: BlazorApp1
