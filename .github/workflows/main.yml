@@ -30,26 +30,19 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore Dependencies
-        run: dotnet restore BlazorApp1/BlazorApp1.csproj
-
       - name: Publish Blazor App
-        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release --no-restore -o publish_site -p:StaticWebAssetBasepath=Soggz-Bloggz
-
-      - name: Set base href
-        run: |
-          sed -i 's|<base href="/" />|<base href="/Soggz-Bloggz/" />|g' publish_site/wwwroot/index.html
+        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release
 
       - name: Copy index.html to 404.html
-        run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
+        run: cp BlazorApp1/bin/Release/net8.0/publish/wwwroot/index.html BlazorApp1/bin/Release/net8.0/publish/wwwroot/404.html
 
       - name: Add .nojekyll file
-        run: touch publish_site/wwwroot/.nojekyll
+        run: touch BlazorApp1/bin/Release/net8.0/publish/wwwroot/.nojekyll
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: publish_site/wwwroot
+          path: BlazorApp1/bin/Release/net8.0/publish/wwwroot
 
       - name: Deploy to GitHub Pages
         id: deployment
