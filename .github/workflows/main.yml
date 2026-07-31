@@ -39,11 +39,11 @@ jobs:
       - name: Publish Blazor App
         run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o publish_site
 
-      - name: Copy index.html to 404.html
-        run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
-
       - name: Ensure .nojekyll exists
         run: touch publish_site/wwwroot/.nojekyll
+
+      - name: Copy index.html to 404.html
+        run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
