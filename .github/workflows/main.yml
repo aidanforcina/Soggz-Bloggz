@@ -42,7 +42,7 @@ jobs:
       - name: Copy index.html to 404.html
         run: cp publish_site/wwwroot/index.html publish_site/wwwroot/404.html
 
-      - name: Add .nojekyll file
+      - name: Ensure .nojekyll exists
         run: touch publish_site/wwwroot/.nojekyll
 
       - name: Upload Artifact
