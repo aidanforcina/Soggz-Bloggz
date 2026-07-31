@@ -30,8 +30,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Restore Dependencies
+        run: dotnet restore BlazorApp1/BlazorApp1.csproj
+
       - name: Publish Blazor App
-        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release -o publish_site -p:StaticWebAssetBasepath=Soggz-Bloggz
+        run: dotnet publish BlazorApp1/BlazorApp1.csproj -c Release --no-restore -o publish_site -p:StaticWebAssetBasepath=Soggz-Bloggz
 
       - name: Set base href
         run: |
