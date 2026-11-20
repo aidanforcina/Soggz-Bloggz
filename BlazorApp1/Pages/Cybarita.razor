@@ -4,13 +4,41 @@
 <p>Cybarita</p>
 
 <p>You have sipped @timesSipped times</p>
-<button @onclick="sipCybarita">Sip Cybarita</button>
+
+@if (pullOutYourGun)
+{
+    <p>Pull out your gun!</p>
+}
+
+<button @onclick="SipCybarita">Sip Cybarita</button>
 
 @code {
-    int timesSipped = 0;
+    private int timesSipped = 0;
+    private bool pullOutYourGun = false;
 
-    void sipCybarita()
+    private void SipCybarita()
     {
         timesSipped++;
+
+        if (timesSipped <= 10)
+        {
+            pullOutYourGun = true;
+        }
+        else
+        {
+            pullOutYourGun = false;
+        }
     }
 }
+
+
+@if (pullOutYourGun)
+{
+    <p>Your gun is all the way out</p>
+}
+
+@if (pullOutYourGun)
+{
+    <p>Would you like to pull the trigger?</p>
+}
+
