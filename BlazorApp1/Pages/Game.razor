@@ -2,40 +2,28 @@
 
 <PageTitle>Game</PageTitle>
 
-
 <p>If I cannot do 1000 kicks then I will do 1000 punches!</p>
 
-
 <p>Punches thrown: @punchesThrown</p>
-
 <button @onclick="PunchCounter">Punch</button>
 
-
-<p> @kicksCounter </p>
-
+<p>Kicks thrown: @kicksThrown</p>
 
 @code {
-
-
-    private int kicksCounter = 0;
-
+    private int kicksThrown = 0;
     private int punchesThrown = 0;
 
     private void PunchCounter()
     {
         punchesThrown++;
+        CheckKicks();
     }
 
-    private void kicksCounter()
+    private void CheckKicks()
     {
-
-
-        If (PunchCounter >= 10);
-
-        kicksThrown++
-
-
+        if (punchesThrown >= 10)
+        {
+            kicksThrown++;
+        }
     }
-
-
 }
