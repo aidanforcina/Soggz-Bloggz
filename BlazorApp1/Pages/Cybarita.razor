@@ -1,16 +1,17 @@
 @page "/Cybarita"
+@rendermode InteractiveServer
 
-<a href="">Home</a>
+<a href="/">Home</a>
 <p>Cybarita</p>
 
 <p>You have sipped @timesSipped times</p>
 
+<button @onclick="SipCybarita">Sip Cybarita</button>
+
 @if (pullOutYourGun)
 {
-    <p>Pull out your gun!</p>
+    <p>You pull your gun out.</p>
 }
-
-<button @onclick="SipCybarita">Sip Cybarita</button>
 
 @code {
     private int timesSipped = 0;
@@ -19,19 +20,6 @@
     private void SipCybarita()
     {
         timesSipped++;
-
-        if (timesSipped <= 10)
-        {
-            pullOutYourGun = true;
-        }
-        
+        pullOutYourGun = timesSipped <= 10;
     }
 }
-
-
-@if (pullOutYourGun)
-{
-    <p>You pull your fucking gun out</p>
-}
-
-
