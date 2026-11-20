@@ -1,24 +1,16 @@
-
 @page "/Game"
-
-
-@code 
-{
-
-public int punchesThrown = 0;
-
-public int punchCounter = punchesThrown++
-
-
-
-
-}
-
-
-
-
 
 <PageTitle>Game</PageTitle>
 
+<p>Punches thrown: @punchesThrown</p>
 
-<button @onclick="punchCounter">Punch</button>
+<button @onclick="PunchCounter">Punch</button>
+
+@code {
+    private int punchesThrown = 0;
+
+    private void PunchCounter()
+    {
+        punchesThrown++;
+    }
+}
