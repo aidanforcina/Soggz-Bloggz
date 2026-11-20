@@ -1,35 +1,16 @@
 @page "/Cybarita"
 
-<a href=" ">Home</a>
-
+<a href="/">Home</a>
 <p>Cybarita</p>
 
+<p>You have sipped @timesSipped times</p>
+<button @onclick="sipCybarita">Sip Cybarita</button>
 
-
-@code{
-    
-    
-    
-    
-    
+@code {
     int timesSipped = 0;
 
-
-    void sipCybarita = timesSipped++;
-    
-
-
-
-
-
-
-
+    void sipCybarita()
+    {
+        timesSipped++;
+    }
 }
-
-
-<p>You have sipped @timesSipped times</p>
-<button>@onclick = sipCybratia</button>
-
-
-
-
