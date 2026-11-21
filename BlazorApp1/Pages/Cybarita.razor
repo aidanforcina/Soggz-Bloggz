@@ -6,18 +6,17 @@
 
 <p>You have sipped @anotherSip times</p>
 
-<button @onclick="anotherSip">Sip Cybarita</button>
+<button @onclick="sipCybarita">Sip Cybarita</button>
 
 
 
 @code {
 
 
-
-global int startSips = 0;
-global int anotherSip = startSips++;
+private int startSips = 0;
 
 
+private void sipCybarita = startSips++;
 
 
 }
