@@ -4,24 +4,15 @@
 <a href="/">Home</a>
 <p>Cybarita</p>
 
-<p>You have sipped @sipCybarita times</p>
+<p>You have sipped @sipCount times</p>
 
-<button @onclick="sipCybarita">Sip Cybarita</button>
-
-
+<button @onclick="SipCybarita">Sip Cybarita</button>
 
 @code {
+    private int sipCount = 0;
 
-
-
-
-private int sipCount = 0;
-
-
-
-
-private int sipCybarita()
-{startSips++;}
-
-
+    private void SipCybarita()
+    {
+        sipCount++;
+    }
 }
