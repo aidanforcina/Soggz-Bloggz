@@ -13,7 +13,7 @@
     </div>
 }
 
-@if (shooting)
+@if (shootGun = "Pull your gun out.")
 {
     <button @onclick="Shoot">Shoot your fucking gun.</button>
 }
@@ -34,6 +34,9 @@
     private int bullets = 6;
     private bool shooting = false;
     private bool empty = false;
+    private string shootGun = "";
+
+
 
     private void Shoot()
     {
@@ -62,6 +65,20 @@
             gunAlert = true;
             gunText = "Pull your gun out.";
         }
+
+
+
+        if (sipCount == 10)
+        {
+            
+            shootGun = "shots";
+
+
+        }
+
+
+
+
 
         if (sipCount == 17)
         {
