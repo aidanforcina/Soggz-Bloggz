@@ -6,14 +6,53 @@
 
 <button @onclick="SipCybarita">Sip Cybarita</button>
 
+@if (sipCount >= 10)
+{
+    <div>
+        <p>Pull your gun out.</p>
+    </div>
+}
+
+@if (shooting)
+{
+    <button @onclick="Shoot">Shoot your fucking gun.</button>
+}
+else
+{
+    <button>Your gun is out.</button>
+}
+
+@if (sipCount >= 20)
+{
+    <div>
+        <p>Pull your fucking gun out.</p>
+    </div>
+}
+
 @code {
     private int sipCount = 0;
     private string gunText = "";
     private bool gunAlert = false;
     private string gunTextTwo = "";
-    private void shoot();
+    private int bullets = 6;
+    private bool shooting = false;
+    private bool empty = false;
 
+    private void Shoot()
+    {
+        shooting = true;
 
+        if (shooting)
+        {
+            bullets--;
+
+            if (bullets < 1)
+            {
+                shooting = false;
+                empty = true;
+            }
+        }
+    }
 
     private void SipCybarita()
     {
@@ -33,25 +72,4 @@
             gunTextTwo = "Pull your fucking gun out";
         }
     }
-}
-
-
-
-
-@if (sipCount >= 10)
-{
-    <div>
-        <p>Pull your gun out.</p>
-    </div>
-}
-
-<button @onclick="shoot">Shoot your fucking gun.</button>
-
-
-
-@if (sipCount >= 20)
-{
-    <div>
-        <p>Pull your fucking gun out.</p>
-    </div>
 }
