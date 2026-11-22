@@ -11,6 +11,9 @@
     private string gunText = "";
     private bool gunAlert = false;
     private string gunTextTwo = "";
+    private string shoot = "";
+
+
 
     private void SipCybarita()
     {
@@ -32,18 +35,21 @@
     }
 }
 
-@if (gunText == "Pull your gun out.")
+
+
+
+@if (sipCount >= 10)
 {
     <div>
         <p>Pull your gun out.</p>
     </div>
 }
 
-<button @onclick="() => { }">Shoot your fucking gun.</button>
+<button @onclick="shoot">Shoot your fucking gun.</button>
 
 
 
-@if (sipCount <= 20)
+@if (sipCount >= 20)
 {
     <div>
         <p>Pull your fucking gun out.</p>
